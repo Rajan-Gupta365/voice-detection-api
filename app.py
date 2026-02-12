@@ -3,23 +3,18 @@ import base64
 import librosa
 import numpy as np
 import tempfile
-import os
-
+import os
 app = FastAPI()
-API_KEY ="sk_test_123456789"
-
+API_KEY ="sk_test_123456789"
 SUPPORTED_LANGUAGES = [
     "Tamil","English","Hindi","Malayalam","Telugu"
-]
-
+]
 def analyze_voice(file_path):
     y, sr = librosa.load(file_path,sr=None)
 
     mfcc =np.mean(librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13))
     zcr = np.mean(librosa.feature.zero_crossing_rate(y))
-    flatness = np.mean(librosa.feature.spectral_flatness(y=y))
-
-    # Generic heuristic-based detection (allowed)
+    flatness = np.mean(librosa.feature.spectral_flatness(y=y))
     score =0
     reasons= []
 
